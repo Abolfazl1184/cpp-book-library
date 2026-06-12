@@ -1,6 +1,8 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -39,3 +41,29 @@ class Book{
                      << "\n";          
        }
 };
+
+vector<Book> books;
+
+void addBook(const Book& book)
+{
+    auto it = find_if(books.begin(), books.end(), [&]( Book& b) {
+         return b.getIsbn() == book.getIsbn();   
+     });
+ 
+
+
+if (it != books.end())
+{
+   cout << "Book with same ISBN exists. Updating details.\n";
+   it -> setTitle (book.getTitle());
+   it -> setAuthor (book.getAuthor());
+   it -> setCopies (book.getCopies());
+}
+   else
+   {
+    books.push_back(book);
+    cout << "Book added successfully.\n";
+   }
+
+
+}
