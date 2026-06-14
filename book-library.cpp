@@ -99,18 +99,30 @@ void searchByTitle (const string& title)
     if (!found)
         cout << "No book found witch that title.\n";
 }
+
+void searchByIsbn (const string& isbn)
+{
+    auto it = find_if ( books.begin(), books.end(), [&](Book& b) {
+         return b.getIsbn() == isbn;
+    });
+    if (it != books.end())
+       it -> display();
+
+    else
+        cout << "No book found with that ISBN.\n";
+}   
 int main() {
     cout << "\n========================================\n";
-    cout << "       LIBRARY MANAGEMENT SYSTEM\n";
+    cout << "     LIBRARY MANAGEMENT SYSTEM\n";
     cout << "========================================\n\n";
     
     // ===== بخش 1: اضافه کردن کتاب =====
     cout << "📚 PART 1: ADDING BOOKS\n";
     cout << "----------------------------------------\n";
-    addBook(Book("C++ Programming", "Bjarne Stroustrup", "978-111", 5));
-    addBook(Book("Clean Code", "Robert Martin", "978-222", 3));
-    addBook(Book("Design Patterns", "Erich Gamma", "978-333", 2));
-    addBook(Book("The Pragmatic Programmer", "David Thomas", "978-444", 4));
+    addBook(Book("C++ Programming", "Bjarne Stroustrup", "111", 5));
+    addBook(Book("Clean Code", "Robert Martin", "222", 3));
+    addBook(Book("Design Patterns", "Erich Gamma", "333", 2));
+    addBook(Book("The Pragmatic Programmer", "David Thomas", "444", 4));
     
     // ===== بخش 2: نمایش همه کتاب‌ها =====
     cout << "\n📚 PART 2: DISPLAY ALL BOOKS\n";
@@ -125,22 +137,31 @@ int main() {
     }
     cout << "\nTotal books: " << books.size() << "\n";
     
-    // ===== بخش 3: جستجوی کتاب با عنوان =====
-    cout << "\n🔍 PART 3: SEARCH BOOKS BY TITLE\n";
+    // ===== بخش 3: جستجو بر اساس عنوان =====
+    cout << "\n🔍 PART 3: SEARCH BY TITLE\n";
     cout << "----------------------------------------\n";
     cout << "Searching for 'C++ Programming':\n";
     searchByTitle("C++ Programming");
     
-    cout << "\nSearching for 'Python Programming':\n";
-    searchByTitle("Python Programming");
+    cout << "\nSearching for 'Python':\n";
+    searchByTitle("Python");
     
-    // ===== بخش 4: اضافه کردن کتاب تکراری =====
-    cout << "\n📚 PART 4: ADD DUPLICATE BOOK (SAME ISBN)\n";
+    // ===== بخش 4: جستجو بر اساس ISBN =====
+    cout << "\n🔍 PART 4: SEARCH BY ISBN\n";
     cout << "----------------------------------------\n";
-    addBook(Book("C++ Programming - Updated", "B. Stroustrup", "978-111", 10));
+    cout << "Searching for ISBN '222':\n";
+    searchByIsbn("222");
     
-    // ===== بخش 5: نمایش بعد از آپدیت =====
-    cout << "\n📚 PART 5: DISPLAY AFTER UPDATE\n";
+    cout << "\nSearching for ISBN '999':\n";
+    searchByIsbn("999");
+    
+    // ===== بخش 5: اضافه کردن کتاب تکراری =====
+    cout << "\n📚 PART 5: ADD DUPLICATE BOOK (SAME ISBN)\n";
+    cout << "----------------------------------------\n";
+    addBook(Book("C++ Programming - Updated", "B. Stroustrup", "111", 10));
+    
+    // ===== بخش 6: نمایش بعد از آپدیت =====
+    cout << "\n📚 PART 6: DISPLAY AFTER UPDATE\n";
     cout << "----------------------------------------\n";
     cout << left << setw(25) << "Title"
          << setw(20) << "Author"
@@ -152,14 +173,14 @@ int main() {
     }
     cout << "\nTotal books: " << books.size() << "\n";
     
-    // ===== بخش 6: حذف کتاب =====
-    cout << "\n🗑️  PART 6: REMOVE BOOK BY ISBN\n";
+    // ===== بخش 7: حذف کتاب =====
+    cout << "\n🗑️ PART 7: REMOVE BOOK BY ISBN\n";
     cout << "----------------------------------------\n";
-    cout << "Removing book with ISBN 978-222:\n";
-    removeBook("978-222");
+    cout << "Removing ISBN '222':\n";
+    removeBook("222");
     
-    // ===== بخش 7: نمایش بعد از حذف =====
-    cout << "\n📚 PART 7: DISPLAY AFTER REMOVAL\n";
+    // ===== بخش 8: نمایش بعد از حذف =====
+    cout << "\n📚 PART 8: DISPLAY AFTER REMOVAL\n";
     cout << "----------------------------------------\n";
     cout << left << setw(25) << "Title"
          << setw(20) << "Author"
@@ -171,36 +192,28 @@ int main() {
     }
     cout << "\nTotal books: " << books.size() << "\n";
     
-    // ===== بخش 8: حذف کتاب ناموجود =====
-    cout << "\n🗑️  PART 8: TRY TO REMOVE NON-EXISTENT BOOK\n";
+    // ===== بخش 9: حذف کتاب ناموجود =====
+    cout << "\n🗑️ PART 9: TRY TO REMOVE NON-EXISTENT BOOK\n";
     cout << "----------------------------------------\n";
-    cout << "Trying to remove ISBN 999-999:\n";
-    removeBook("999-999");
+    cout << "Trying to remove ISBN '999':\n";
+    removeBook("999");
     
-    // ===== بخش 9: جستجوی دوباره =====
-    cout << "\n🔍 PART 9: SEARCH AGAIN AFTER CHANGES\n";
+    // ===== بخش 10: جستجوی دوباره =====
+    cout << "\n🔍 PART 10: SEARCH AGAIN AFTER CHANGES\n";
     cout << "----------------------------------------\n";
     cout << "Searching for 'C++ Programming':\n";
     searchByTitle("C++ Programming");
     
-    // ===== بخش 10: نمایش نهایی =====
-    cout << "\n📊 PART 10: FINAL SUMMARY\n";
+    cout << "\nSearching for ISBN '111':\n";
+    searchByIsbn("111");
+    
+    // ===== بخش 11: نمایش نهایی =====
+    cout << "\n📊 PART 11: FINAL SUMMARY\n";
     cout << "----------------------------------------\n";
     cout << "Total books in library: " << books.size() << "\n";
-    if (!books.empty()) {
-        cout << "\nRemaining books:\n";
-        cout << left << setw(25) << "Title"
-             << setw(20) << "Author"
-             << setw(15) << "ISBN"
-             << setw(10) << "Copies" << "\n";
-        cout << string(70, '-') << "\n";
-        for (const auto& book : books) {
-            book.display();
-        }
-    }
     
     cout << "\n========================================\n";
-    cout << "       PROGRAM FINISHED SUCCESSFULLY!\n";
+    cout << "     PROGRAM FINISHED SUCCESSFULLY!\n";
     cout << "========================================\n";
     
     return 0;
